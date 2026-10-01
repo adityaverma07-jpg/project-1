@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Bakery - Cart & Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-light: #D2691E;
+            --accent: #F4A460;
+            --bg-light: #FDFBF7;
+            --bg-card: #FFFFFF;
+            --text-main: #332211;
+            --text-muted: #665544;
+            --border-color: #EEDDBB;
+            --shadow: 0 4px 20px rgba(139, 69, 19, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .brand-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* HEADER */
+        header {
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* CART & CHECKOUT SECTION */
+        .cart-checkout-section {
+            padding: 60px 0 90px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .section-header h2 {
+            font-size: 38px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .cart-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .cart-items-card, .checkout-card {
+            background-color: var(--bg-card);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .cart-items-card h3, .checkout-card h3 {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .cart-item-qty {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary);
+            background-color: var(--bg-light);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* CHECKOUT FORM */
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background-color: #fff;
+        }
+
+        .cart-summary {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2D1810;
+            color: #EEDDBB;
+            padding: 40px 0 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: #997766;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #CCAABB;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 900px) {
+            .cart-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container navbar">
+            <a href="#" class="brand">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name">Apna Bakery</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="homebakersAdda.html">Home</a></li>
+                <li><a href="menu.html">Our Menu</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- CART & CHECKOUT SECTION -->
+    <section class="cart-checkout-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cart & Checkout</h2>
+                <p>Review your selected fresh treats and complete your order details below.</p>
+            </div>
+            
+            <div class="cart-grid">
+                <!-- CART ITEMS LIST -->
+                <div class="cart-items-card">
+                    <h3>Your Selected Items (3)</h3>
+                    <div class="cart-item-row">
+                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=200&q=80" alt="Cookie" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">Chocolate Chip Cookies</div>
+                            <div class="cart-item-price">₹180 per box</div>
+                        </div>
+                        <span class="cart-item-qty">Qty: 1</span>
+                    </div>
+
+                    <div class="cart-item-row">
+                        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=200&q=80" alt="Hamper" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">Mini Bakery Hamper</div>
+                            <div class="cart-item-price">₹650 with Thank-you card</div>
+                        </div>
+                        <span class="cart-item-qty">Qty: 1</span>
+                    </div>
+
+                    <div class="cart-item-row">
+                        <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=200&q=80" alt="Muffin" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">Chocolate Muffins</div>
+                            <div class="cart-item-price">₹90 per piece</div>
+                        </div>
+                        <span class="cart-item-qty">Qty: 1</span>
+                    </div>
+
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹920</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery Charges</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total Amount</span>
+                            <span>₹970</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHECKOUT FORM -->
+                <div class="checkout-card">
+                    <h3>Delivery Details & Order Now</h3>
+                    <form class="checkout-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" class="form-control" placeholder="Aditya Verma" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 98765 43210" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Delivery Address</label>
+                            <textarea id="address" class="form-control" placeholder="Enter your full street address, apartment, landmark..." style="min-height: 80px;" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment">Payment Method</label>
+                            <select id="payment" class="form-control" required>
+                                <option value="cod">Cash on Delivery (COD)</option>
+                                <option value="upi">UPI / Online Payment</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Place Order (₹970)</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="text-align: center; margin-bottom: 25px;">
+            <div class="brand" style="justify-content: center; margin-bottom: 10px;">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name" style="color: #fff;">Apna Bakery</span>
+            </div>
+            <a href="https://instagram.com/urfav.aditya07" target="_blank" class="social-link">
+                📸 Instagram: @urfav.aditya07
+            </a>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Apna Bakery. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

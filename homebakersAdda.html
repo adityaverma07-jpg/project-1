@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Bakery - Freshly Baked Happiness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-light: #D2691E;
+            --accent: #F4A460;
+            --bg-light: #FDFBF7;
+            --bg-card: #FFFFFF;
+            --text-main: #332211;
+            --text-muted: #665544;
+            --border-color: #EEDDBB;
+            --shadow: 0 4px 20px rgba(139, 69, 19, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .brand-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .state-toggle {
+            display: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        /* HEADER */
+        header {
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-main);
+            text-decoration: none;
+            position: relative;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--primary);
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* HERO SECTION (HOMEPAGE) */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #FDFBF7 0%, #F5EBE6 100%);
+            min-height: calc(100vh - 75px);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            line-height: 1.15;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        /* HIGHLIGHT FEATURES STRIP */
+        .features-strip {
+            background-color: #fff;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .feature-item h3 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2D1810;
+            color: #EEDDBB;
+            padding: 50px 0 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: #997766;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #CCAABB;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 38px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container navbar">
+            <a href="#" class="brand">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name">Apna Bakery</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="homebakersAdda.html">Home</a></li>
+                <li><a href="menu.html">Our Menu</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="ordercart.html">Cart</a></li>
+                
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="icon-btn" title="Login">👤</a>
+                <a href="#" class="icon-btn" title="Cart">
+                    🛒
+                    <span class="cart-badge">3</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOMEPAGE HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1>Freshly Baked Happiness at Apna Bakery</h1>
+                <p>Welcome to your neighborhood destination for handmade artisan cookies, rich dry cakes, traditional plum cakes, fluffy muffins, and exclusive gifting hampers made with pure love and premium ingredients.</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn">Explore Starter Menu</a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="Fresh Bakery Assortment">
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES STRIP -->
+    <section class="features-strip">
+        <div class="container features-grid">
+            <div class="feature-item">
+                <h3>🌾 100% Fresh Daily</h3>
+                <p>Baked fresh every morning using wholesome ingredients and zero preservatives.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🎁 Special Hampers</h3>
+                <p>Curated mini bakery gift hampers complete with a personalized thank-you card.</p>
+            </div>
+            <div class="feature-item">
+                <h3>❤️ Made with Love</h3>
+                <p>Authentic old-school recipes bringing warmth and comfort to every single bite.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="text-align: center; margin-bottom: 30px;">
+            <div class="brand" style="justify-content: center; margin-bottom: 12px;">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name" style="color: #fff;">Apna Bakery</span>
+            </div>
+            <p style="color: #CCAABB; font-size: 14px; max-width: 500px; margin: 0 auto;">Spreading joy, warmth, and fresh oven-baked goodness every single day.</p>
+            <a href="https://instagram.com/urfav.aditya07" target="_blank" class="social-link">
+                📸 Instagram: @urfav.aditya07
+            </a>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Apna Bakery. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

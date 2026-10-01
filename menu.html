@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Bakery - Our Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-light: #D2691E;
+            --accent: #F4A460;
+            --bg-light: #FDFBF7;
+            --bg-card: #FFFFFF;
+            --text-main: #332211;
+            --text-muted: #665544;
+            --border-color: #EEDDBB;
+            --shadow: 0 4px 20px rgba(139, 69, 19, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .brand-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .state-toggle {
+            display: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* MENU SECTION WITH TABS VIA PURE CSS */
+        .menu-section {
+            padding: 60px 0 90px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .section-header h2 {
+            font-size: 38px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Tab Navigation Controls */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 9px 22px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Tab Content Panels Handling */
+        .menu-panel {
+            display: none;
+        }
+
+        /* CSS Selector Logic for Interactive Tabs */
+        #tab-all:checked ~ .menu-tabs label[for="tab-all"],
+        #tab-cookies:checked ~ .menu-tabs label[for="tab-cookies"],
+        #tab-cakes:checked ~ .menu-tabs label[for="tab-cakes"],
+        #tab-plum:checked ~ .menu-tabs label[for="tab-plum"],
+        #tab-muffins:checked ~ .menu-tabs label[for="tab-muffins"],
+        #tab-hampers:checked ~ .menu-tabs label[for="tab-hampers"] {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        #tab-all:checked ~ .menu-content .panel-all,
+        #tab-cookies:checked ~ .menu-content .panel-cookies,
+        #tab-cakes:checked ~ .menu-content .panel-cakes,
+        #tab-plum:checked ~ .menu-content .panel-plum,
+        #tab-muffins:checked ~ .menu-content .panel-muffins,
+        #tab-hampers:checked ~ .menu-content .panel-hampers {
+            display: grid;
+        }
+
+        .menu-content .menu-panel {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Product Card Design */
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.12);
+        }
+
+        .product-img {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-cart-btn {
+            background-color: var(--bg-light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-cart-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2D1810;
+            color: #EEDDBB;
+            padding: 40px 0 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: #997766;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #CCAABB;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container navbar">
+            <a href="#" class="brand">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name">Apna Bakery</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="homebakersAdda.html">Home</a></li>
+                <li><a href="menu.html">Our Menu</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login</a></li>
+
+                <li><a href="ordercart.html">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MENU SECTION WITH INTERACTIVE TABS -->
+    <section class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Small Starter Menu</h2>
+                <p>Hand-crafted every single morning using premium ingredients, authentic recipes, and loads of warmth.</p>
+            </div>
+
+            <!-- Radio Inputs for Pure CSS Tab State Management -->
+            <input type="radio" name="menu-tab" id="tab-all" class="state-toggle" checked>
+            <input type="radio" name="menu-tab" id="tab-cookies" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-cakes" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-plum" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-muffins" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-hampers" class="state-toggle">
+
+            <!-- Interactive Tab Buttons -->
+            <div class="menu-tabs">
+                <label for="tab-all" class="tab-btn">All Items</label>
+                <label for="tab-cookies" class="tab-btn">Cookies (2)</label>
+                <label for="tab-cakes" class="tab-btn">Dry Cakes (2)</label>
+                <label for="tab-plum" class="tab-btn">Plum Cake (1)</label>
+                <label for="tab-muffins" class="tab-btn">Muffins (2)</label>
+                <label for="tab-hampers" class="tab-btn">Hamper (1)</label>
+            </div>
+
+            <!-- Tab Content Panels -->
+            <div class="menu-content">
+                
+                <!-- ALL ITEMS PANEL -->
+                <div class="menu-panel panel-all">
+                    <!-- Chocolate Chip Cookies -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Chip Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Chip Cookies</h3>
+                            <p class="product-desc">Classic crisp cookies loaded with rich semi-sweet chocolate chunks in every bite.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹180</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Double Chocolate Cookies -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" alt="Double Chocolate Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Double Chocolate Cookies</h3>
+                            <p class="product-desc">Decadent cocoa-infused cookie dough packed with melt-in-your-mouth chocolate chips.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹210</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chocolate Dry Cake -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Chocolate Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Dry Cake</h3>
+                            <p class="product-desc">Rich, moist sponge cake infused with deep dark chocolate flavor, perfect for tea time.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹350</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fruit & Nut Dry Cake -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=600&q=80" alt="Fruit & Nut Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Fruit & Nut Dry Cake</h3>
+                            <p class="product-desc">Traditional buttery loaf stuffed with candied fruits and crunchy premium nuts.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹390</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Classic Non-Alcoholic Plum Cake -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Plum Cake</span>
+                            <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=600&q=80" alt="Classic Non-Alcoholic Plum Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Classic Non-Alcoholic Plum Cake</h3>
+                            <p class="product-desc">Rich spiced fruit cake soaked in rich fruit juices and warm aromatic spices.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹450</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chocolate Muffins -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Muffins</h3>
+                            <p class="product-desc">Fluffy, domed chocolate muffins bursting with chocolate goodness in every mouthful.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹90</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vanilla Muffins -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?auto=format&fit=crop&w=600&q=80" alt="Vanilla Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Vanilla Muffins</h3>
+                            <p class="product-desc">Soft, buttery vanilla sponge muffins baked to golden perfection with a delicate crumb.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹80</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Bakery Hamper -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Hamper</span>
+                            <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=600&q=80" alt="Mini Bakery Hamper">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Mini Bakery Hamper</h3>
+                            <p class="product-desc">Includes Chocolate Chip Cookies, Mini Dry Cake, 2 Muffins & a Thank-you card.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹650</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COOKIES PANEL -->
+                <div class="menu-panel panel-cookies">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Chip Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Chip Cookies</h3>
+                            <p class="product-desc">Classic crisp cookies loaded with rich semi-sweet chocolate chunks in every bite.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹180</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" alt="Double Chocolate Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Double Chocolate Cookies</h3>
+                            <p class="product-desc">Decadent cocoa-infused cookie dough packed with melt-in-your-mouth chocolate chips.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹210</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DRY CAKES PANEL -->
+                <div class="menu-panel panel-cakes">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Chocolate Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Dry Cake</h3>
+                            <p class="product-desc">Rich, moist sponge cake infused with deep dark chocolate flavor, perfect for tea time.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹350</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=600&q=80" alt="Fruit & Nut Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Fruit & Nut Dry Cake</h3>
+                            <p class="product-desc">Traditional buttery loaf stuffed with candied fruits and crunchy premium nuts.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹390</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLUM CAKE PANEL -->
+                <div class="menu-panel panel-plum">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Plum Cake</span>
+                            <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=600&q=80" alt="Classic Non-Alcoholic Plum Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Classic Non-Alcoholic Plum Cake</h3>
+                            <p class="product-desc">Rich spiced fruit cake soaked in rich fruit juices and warm aromatic spices.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹450</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MUFFINS PANEL -->
+                <div class="menu-panel panel-muffins">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Muffins</h3>
+                            <p class="product-desc">Fluffy, domed chocolate muffins bursting with chocolate goodness in every mouthful.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹90</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?auto=format&fit=crop&w=600&q=80" alt="Vanilla Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Vanilla Muffins</h3>
+                            <p class="product-desc">Soft, buttery vanilla sponge muffins baked to golden perfection with a delicate crumb.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹80</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HAMPER PANEL -->
+                <div class="menu-panel panel-hampers">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Hamper</span>
+                            <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=600&q=80" alt="Mini Bakery Hamper">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Mini Bakery Hamper</h3>
+                            <p class="product-desc">Includes Chocolate Chip Cookies, Mini Dry Cake, 2 Muffins & a Thank-you card.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹650</span>
+                                <button class="add-cart-btn">+ Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="text-align: center; margin-bottom: 25px;">
+            <div class="brand" style="justify-content: center; margin-bottom: 10px;">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name" style="color: #fff;">Apna Bakery</span>
+            </div>
+            <a href="https://instagram.com/urfav.aditya07" target="_blank" class="social-link">
+                📸 Instagram: @urfav.aditya07
+            </a>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Apna Bakery. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

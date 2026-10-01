@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Bakery - Freshly Baked Happiness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --primary-light: #D2691E;
+            --accent: #F4A460;
+            --bg-light: #FDFBF7;
+            --bg-card: #FFFFFF;
+            --text-main: #332211;
+            --text-muted: #665544;
+            --border-color: #EEDDBB;
+            --shadow: 0 4px 20px rgba(139, 69, 19, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .brand-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hidden Checkboxes for Pure CSS Interactivity */
+        .state-toggle {
+            display: none;
+        }
+
+        /* Utility Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-main);
+            text-decoration: none;
+            position: relative;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--primary);
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-label {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* HERO SECTION (HOMEPAGE) */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #FDFBF7 0%, #F5EBE6 100%);
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        /* MENU SECTION WITH TABS VIA CSS */
+        .menu-section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        /* Tab Navigation Controls */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 8px 20px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Tab Content Panels Handling */
+        .menu-panel {
+            display: none;
+        }
+
+        /* CSS Selector Logic for Tabs */
+        #tab-all:checked ~ .menu-tabs label[for="tab-all"],
+        #tab-cookies:checked ~ .menu-tabs label[for="tab-cookies"],
+        #tab-cakes:checked ~ .menu-tabs label[for="tab-cakes"],
+        #tab-plum:checked ~ .menu-tabs label[for="tab-plum"],
+        #tab-muffins:checked ~ .menu-tabs label[for="tab-muffins"],
+        #tab-hampers:checked ~ .menu-tabs label[for="tab-hampers"] {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        #tab-all:checked ~ .menu-content .panel-all,
+        #tab-cookies:checked ~ .menu-content .panel-cookies,
+        #tab-cakes:checked ~ .menu-content .panel-cakes,
+        #tab-plum:checked ~ .menu-content .panel-plum,
+        #tab-muffins:checked ~ .menu-content .panel-muffins,
+        #tab-hampers:checked ~ .menu-content .panel-hampers {
+            display: grid;
+        }
+
+        .menu-content .menu-panel {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Product Card Design */
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.12);
+        }
+
+        .product-img {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-cart-btn {
+            background-color: var(--bg-light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-cart-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* ABOUT US SECTION */
+        .about-section {
+            padding: 80px 0;
+            background-color: #F5EBE6;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            padding: 80px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info-card {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info-card h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+
+        .info-item span {
+            font-size: 20px;
+        }
+
+        .contact-form {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background-color: #fff;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* MODALS (CART & LOGIN) VIA PURE CSS TOGGLE */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-card {
+            background-color: var(--bg-card);
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+
+        /* Login Modal Center Override */
+        #login-toggle:checked ~ .login-modal {
+            justify-content: center;
+            align-items: center;
+        }
+
+        #login-toggle:checked ~ .login-modal .modal-card {
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            transform: translateX(0);
+        }
+
+        /* Activate Modals */
+        #cart-toggle:checked ~ .cart-modal,
+        #login-toggle:checked ~ .login-modal,
+        #order-toggle:checked ~ .order-modal {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #cart-toggle:checked ~ .cart-modal .modal-card,
+        #order-toggle:checked ~ .modal-overlay .modal-card {
+            transform: translateX(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h3 {
+            font-size: 22px;
+            color: var(--primary);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .cart-items-list {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .cart-summary {
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+            margin-top: 12px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2D1810;
+            color: #EEDDBB;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: #FFFFFF;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p {
+            font-size: 14px;
+            color: #CCAABB;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #CCAABB;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #CCAABB;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 5px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            color: #997766;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 900px) {
+            .hero-grid, .about-grid, .contact-grid, .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero-content h1 {
+                font-size: 38px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-label {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CSS State Toggles for Modals and Menu Filters -->
+    <input type="checkbox" id="cart-toggle" class="state-toggle">
+    <input type="checkbox" id="login-toggle" class="state-toggle">
+    <input type="checkbox" id="order-toggle" class="state-toggle">
+
+    <!-- HEADER -->
+    <header>
+        <div class="container navbar">
+            <a href="#" class="brand">
+                <span class="brand-logo">🍪</span>
+                <span class="brand-name">Apna Bakery</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="homebakersAdda.html">Home</a></li>
+                <li><a href="menu.html">Our Menu</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="ordercart.html">Cart</a></li>
+            </ul>
+            <div class="nav-actions">
+                <label for="login-toggle" class="icon-btn" title="Login">👤</label>
+                <label for="cart-toggle" class="icon-btn" title="Cart">
+                    🛒
+                    <span class="cart-badge">3</span>
+                </label>
+                <label for="cart-toggle" class="btn" style="padding: 6px 16px; font-size: 13px;">Order Now</label>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (HOMEPAGE) -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1>Freshly Baked Happiness at Apna Bakery</h1>
+                <p>Welcome to your neighborhood haven of sweet aromas, buttery treats, artisan cookies, rich plum cakes, and handcrafted hampers made with pure love.</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn">Explore Menu</a>
+                    <label for="order-toggle" class="btn btn-outline">Quick Order</label>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="Fresh Bakery Assortment">
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION WITH TABS -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Small Starter Menu</h2>
+                <p>Hand-crafted every single morning using premium ingredients, authentic recipes, and loads of warmth.</p>
+            </div>
+
+            <!-- Radio Inputs for Tab State Management -->
+            <input type="radio" name="menu-tab" id="tab-all" class="state-toggle" checked>
+            <input type="radio" name="menu-tab" id="tab-cookies" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-cakes" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-plum" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-muffins" class="state-toggle">
+            <input type="radio" name="menu-tab" id="tab-hampers" class="state-toggle">
+
+            <!-- Interactive Tab Header Buttons -->
+            <div class="menu-tabs">
+                <label for="tab-all" class="tab-btn">All Items</label>
+                <label for="tab-cookies" class="tab-btn">Cookies (2)</label>
+                <label for="tab-cakes" class="tab-btn">Dry Cakes (2)</label>
+                <label for="tab-plum" class="tab-btn">Plum Cake (1)</label>
+                <label for="tab-muffins" class="tab-btn">Muffins (2)</label>
+                <label for="tab-hampers" class="tab-btn">Hamper (1)</label>
+            </div>
+
+            <!-- Tab Content Panels -->
+            <div class="menu-content">
+                
+                <!-- ALL ITEMS PANEL -->
+                <div class="menu-panel panel-all">
+                    <!-- Chocolate Chip Cookies -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Chip Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Chip Cookies</h3>
+                            <p class="product-desc">Classic crisp cookies loaded with rich semi-sweet chocolate chunks in every bite.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹180</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Double Chocolate Cookies -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" alt="Double Chocolate Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Double Chocolate Cookies</h3>
+                            <p class="product-desc">Decadent cocoa-infused cookie dough packed with melt-in-your-mouth chocolate chips.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹210</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chocolate Dry Cake -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Chocolate Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Dry Cake</h3>
+                            <p class="product-desc">Rich, moist sponge cake infused with deep dark chocolate flavor, perfect for tea time.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹350</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fruit & Nut Dry Cake -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=600&q=80" alt="Fruit & Nut Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Fruit & Nut Dry Cake</h3>
+                            <p class="product-desc">Traditional buttery loaf stuffed with candied fruits and crunchy premium nuts.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹390</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Classic Non-Alcoholic Plum Cake -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Plum Cake</span>
+                            <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=600&q=80" alt="Classic Non-Alcoholic Plum Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Classic Non-Alcoholic Plum Cake</h3>
+                            <p class="product-desc">Rich spiced fruit cake soaked in rich fruit juices and warm aromatic spices.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹450</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chocolate Muffins -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Muffins</h3>
+                            <p class="product-desc">Fluffy, domed chocolate muffins bursting with chocolate goodness in every mouthful.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹90</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vanilla Muffins -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?auto=format&fit=crop&w=600&q=80" alt="Vanilla Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Vanilla Muffins</h3>
+                            <p class="product-desc">Soft, buttery vanilla sponge muffins baked to golden perfection with a delicate crumb.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹80</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Bakery Hamper -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Hamper</span>
+                            <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=600&q=80" alt="Mini Bakery Hamper">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Mini Bakery Hamper</h3>
+                            <p class="product-desc">Includes Chocolate Chip Cookies, Mini Dry Cake, 2 Muffins & a Thank-you card.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹650</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COOKIES PANEL -->
+                <div class="menu-panel panel-cookies">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Chip Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Chip Cookies</h3>
+                            <p class="product-desc">Classic crisp cookies loaded with rich semi-sweet chocolate chunks in every bite.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹180</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Cookies</span>
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" alt="Double Chocolate Cookies">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Double Chocolate Cookies</h3>
+                            <p class="product-desc">Decadent cocoa-infused cookie dough packed with melt-in-your-mouth chocolate chips.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹210</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DRY CAKES PANEL -->
+                <div class="menu-panel panel-cakes">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="Chocolate Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Dry Cake</h3>
+                            <p class="product-desc">Rich, moist sponge cake infused with deep dark chocolate flavor, perfect for tea time.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹350</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Dry Cakes</span>
+                            <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=600&q=80" alt="Fruit & Nut Dry Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Fruit & Nut Dry Cake</h3>
+                            <p class="product-desc">Traditional buttery loaf stuffed with candied fruits and crunchy premium nuts.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹390</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLUM CAKE PANEL -->
+                <div class="menu-panel panel-plum">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Plum Cake</span>
+                            <img src="https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=600&q=80" alt="Classic Non-Alcoholic Plum Cake">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Classic Non-Alcoholic Plum Cake</h3>
+                            <p class="product-desc">Rich spiced fruit cake soaked in rich fruit juices and warm aromatic spices.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹450</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MUFFINS PANEL -->
+                <div class="menu-panel panel-muffins">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Chocolate Muffins</h3>
+                            <p class="product-desc">Fluffy, domed chocolate muffins bursting with chocolate goodness in every mouthful.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹90</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Muffins</span>
+                            <img src="https://images.unsplash.com/photo-1607478900766-efe13248b125?auto=format&fit=crop&w=600&q=80" alt="Vanilla Muffins">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Vanilla Muffins</h3>
+                            <p class="product-desc">Soft, buttery vanilla sponge muffins baked to golden perfection with a delicate crumb.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹80</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HAMPER PANEL -->
+                <div class="menu-panel panel-hampers">
+                    <div class="product-card">
+                        <div class="product-img">
+                            <span class="product-tag">Hamper</span>
+                            <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=600&q=80" alt="Mini Bakery Hamper">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Mini Bakery Hamper</h3>
+                            <p class="product-desc">Includes Chocolate Chip Cookies, Mini Dry Cake, 2 Muffins & a Thank-you card.</p>
+                            <div class="product-footer">
+                                <span class="product-price">₹650</span>
+                                <label for="cart-toggle" class="add-cart-btn">+ Add to Cart</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" class="about-section">
+        <div class="container about-grid">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Baker preparing fresh goods">
+            </div>
+            <div class="about-text">
+                <h2>About Apna Bakery</h2>
+                <p>Founded with a passion for bringing genuine, wholesome flavors to your table, <strong>Apna Bakery</strong> takes pride in baking everything from scratch. We believe in using traditional artisan methods, premium quality butter, farm-fresh eggs, and zero artificial preservatives.</p>
+                <p>Whether you're craving an afternoon chocolate chip cookie, celebrating a cozy evening with our non-alcoholic fruit plum cake, or gifting our signature Mini Bakery Hamper complete with a personalized thank-you card, we make every moment sweeter.</p>
+                <a href="#menu" class="btn" style="margin-top: 10px;">Taste Our Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have questions, custom bulk orders, or feedback? Drop us a note or visit our store!</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h3>Get in Touch</h3>
+                    <div class="info-item">
+                        <span>📍</span>
+                        <p>123 Kalyanpur west , Lucknow/p>
+                    </div>
+                    <div class="info-item">
+                        <span>📞</span>
+                        <p>+91 8572992171</p>
+                    </div>
+                    <div class="info-item">
+                        <span>✉️</span>
+                        <p>https://www.instagram.com/urfav.aditya07/?utm_source=ig_web_button_share_sheet</p>
+                    </div>
+                    <div class="info-item">
+                        <span>⏰</span>
+                        <p>Monday – Sunday: 8:00 AM – 9:00 PM</p>
+                    </div>
+                </div>
+                <form class="contact-form" action="#" method="POST">
+                    <h3>Send a Message</h3>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Aditya Verma" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="aditya@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" class="form-control" placeholder="Write your message or custom order inquiry here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="brand" style="margin-bottom: 15px;">
+                    <span class="brand-logo">🍪</span>
+                    <span class="brand-name" style="color: #fff;">Apna Bakery</span>
+                </div>
+                <p>Spreading joy, warmth, and fresh oven-baked goodness every single day. Taste the love in every crumb.</p>
+                <a href="https://instagram.com/urfav.aditya07" target="_blank" class="social-link">
+                    📸 Instagram: @urfav.aditya07
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#menu">Our Menu</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Starter Specialties</h4>
+                <ul class="footer-links">
+                    <li><a href="#menu">Chocolate Chip Cookies</a></li>
+                    <li><a href="#menu">Fruit & Nut Dry Cake</a></li>
+                    <li><a href="#menu">Classic Plum Cake</a></li>
+                    <li><a href="#menu">Mini Bakery Hamper</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Apna Bakery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- CART SIDEBAR MODAL -->
+    <div class="modal-overlay cart-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Your Shopping Cart</h3>
+                <label for="cart-toggle" class="close-btn">&times;</label>
+            </div>
+            <div class="cart-items-list">
+                <div class="cart-item-row">
+                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=200&q=80" alt="Cookie" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">Chocolate Chip Cookies</div>
+                        <div class="cart-item-price">₹180 x 1</div>
+                    </div>
+                </div>
+                <div class="cart-item-row">
+                    <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=200&q=80" alt="Hamper" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">Mini Bakery Hamper</div>
+                        <div class="cart-item-price">₹650 x 1</div>
+                    </div>
+                </div>
+                <div class="cart-item-row">
+                    <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=200&q=80" alt="Muffin" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">Chocolate Muffins</div>
+                        <div class="cart-item-price">₹90 x 1</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>₹920</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Charges</span>
+                    <span>₹50</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount</span>
+                    <span>₹970</span>
+                </div>
+            </div>
+            <label for="order-toggle" class="btn" style="text-align: center; width: 100%;">Proceed to Checkout</label>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay login-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Welcome Back</h3>
+                <label for="login-toggle" class="close-btn">&times;</label>
+            </div>
+            <form class="contact-form" action="#" method="POST" style="padding: 0; box-shadow: none; border: none;">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-pass">Password</label>
+                    <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ORDER NOW / CHECKOUT SUCCESS MODAL -->
+    <div class="modal-overlay order-modal">
+        <div class="modal-card" style="max-width: 450px; height: auto; margin: auto; border-radius: 20px;">
+            <div class="modal-header">
+                <h3>Order Successful! 🎉</h3>
+                <label for="order-toggle" class="close-btn">&times;</label>
+            </div>
+            <div style="text-align: center; padding: 20px 0;">
+                <p style="font-size: 48px; margin-bottom: 15px;">🍰</p>
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 22px; color: var(--primary); margin-bottom: 10px;">Thank you for ordering with Apna Bakery!</h4>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Your fresh treats are being packed with care along with your complimentary Thank-You card. We will deliver them shortly!</p>
+                <label for="order-toggle" class="btn" style="width: 100%;">Back to Homepage</label>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
